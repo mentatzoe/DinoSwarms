@@ -32,9 +32,7 @@ package island.tiles
         
         public function onEatGrass():void {
             _ediblePercent -= EAT_RATE;
-            if(_ediblePercent <= 0){
-                _isEdible = false;
-            }
+            _isEdible = (_ediblePercent > 0);
         }
         
         private function grow():void {
