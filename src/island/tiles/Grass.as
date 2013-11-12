@@ -1,7 +1,5 @@
 package island.tiles
 {
-    import flash.events.Event;
-
     public class Grass extends Tile
     {
         public static const EDIBLE_PERCENT:Number = .5;
@@ -9,13 +7,15 @@ package island.tiles
         
         private var _ediblePercent:int;
         private var _isEdible:Boolean;
+        private var _growRate:Number;
         
-        public function Grass(height:Number)
+        public function Grass(height:Number,growRate:Number)
         {
             super();
             _traversable = true;
             _ediblePercent = height;
             _isEdible = (height > EDIBLE_PERCENT);
+            _growRate = growRate;
         }
         
         public override function getColor():uint {
@@ -34,10 +34,15 @@ package island.tiles
             _ediblePercent -= EAT_RATE;
             if(_ediblePercent <= 0){
                 _isEdible = false;
-                addEventListener(Event.
             }
         }
         
+        private function grow():void {
+            _ediblePercent = Math.min(_ediblePercent+_growRate,1);
+        }
         
+        public override function onUpdate():void {
+            grow();
+        }
     }
 }
