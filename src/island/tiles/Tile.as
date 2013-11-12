@@ -1,5 +1,5 @@
 package island.tiles
-{    
+{
     public class Tile
     {
         protected var _traversable:Boolean;
@@ -11,6 +11,10 @@ package island.tiles
         
         public function getColor():uint {
             return null;
+        }
+        
+        public function onUpdate():void {
+            //Here be dragons %@#(%)(@#%*(@#%)(#*%)
         }
     }
 }
