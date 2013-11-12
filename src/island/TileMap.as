@@ -41,6 +41,16 @@ package island
         private function init(e:Event):void {
             stage.addEventListener(TileEvent.ON_TILE,onTileEvent,false,0,true);
             stage.addEventListener(TileEvent.EAT_GRASS,eatGrass,false,0,true);
+            addEventListener(Event.ENTER_FRAME, onUpdate);
+        }
+        
+        private function onUpdate(e:Event):void {
+            for(var x:int = 0; x<WIDTH; x++){
+                for(var y:int = 0; y<HEIGHT; y++){
+                    var tile:Tile = tileMap[x][y];
+                    tile.onUpdate();
+                }
+            }
         }
         
         private function onTileEvent(e:TileEvent):void {
