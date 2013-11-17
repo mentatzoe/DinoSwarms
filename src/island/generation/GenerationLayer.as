@@ -9,7 +9,7 @@ public class GenerationLayer{
 	}
 
 	/**
-	 * Given a 2D vector of ints, applies a process to a 2D vector of ints
+	 * Applies a process to a 2D vector of ints at a specific resolution and returns a 2D vector of ints.
 	 */
 	public function apply(tilemap:Vector.<Vector.<int>>, resolution:int):Vector.<Vector.<int>>{
 		throw new IllegalOperationError();
@@ -23,7 +23,8 @@ public class GenerationLayer{
 	}
 	
 	/**
-	 * Adds the max/min resolutions, and resolutions from max that are powers of two to the list
+	 * From max resolution, adds resolutions of powers of two in descending order to the list, adding
+	 * min resolution last.
 	 */
 	public function setMinMaxResolution(minResolution:int, maxResolution):void{
 		while(maxResolution != minResolution){
