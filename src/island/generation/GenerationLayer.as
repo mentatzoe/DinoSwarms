@@ -2,15 +2,16 @@ package island.generation
 {
 import flash.errors.IllegalOperationError;
 
-import island.TileMap;
-
-public class GenerationLayer
-{
+public class GenerationLayer{
+	
 	public function GenerationLayer(){
 		//TODO
 	}
-		
-	public function apply(tilemapIn:TileMap, resolution:int):TileMap{
+	
+	/**
+	 * 
+	 */
+	public function apply(tilemap:Vector.<Vector.<int>>, resolution:int):Vector.<Vector.<int>>{
 		throw new IllegalOperationError();
 	}
 		
