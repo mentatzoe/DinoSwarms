@@ -2,6 +2,7 @@ package island.generation
 {
 
 import island.TileMap;
+import island.tiles.Tile;
 
 public class LevelGeneration{
 	public static var STARTING_RESOLUTION:int = 256;
@@ -21,16 +22,53 @@ public class LevelGeneration{
 	 * The generation terminates once the last pass has been completed at maximum resolution.
 	 */
 	public function generate():TileMap{
-		//TODO
-		return null;
+		
+		//defining locals
+		var tileMap : new TileMap(); //TileMap we're returning after the generation
+		var step : int = 2; //Defines the step in which the resolution will increase ("decrease")
+		var currentRes : int = STARTING_RESOLUTION; //Controlling the current resolution
+	
+		
+		
+		//Generating 2D int vector (of tile types);
+		var columns : Vector( TileMap.WIDTH );		
+		for( var i:int = 0; i < TileMap.WIDTH; i++ ){
+			columns[i] = new Vector( TileMap.HEIGHT );
+			for (var j:int = 0; j < TileMap.HEIGHT; j++ ){
+				columns[i][j] = 0;
+			}
+		}
+		
+		//Applying layers to the int array of tile types on increasing resolution
+		while (currentRes >= ENDING_RESOLUTION){
+			for each (var layer in this.layers){
+				if (layer.usesResolution()){
+					layer.apply(currentRes);
+				}			
+			}
+			currentRes /= step;
+		}
+		
+		//Convert int array into tileMap	
+		for( var i:int = 0; i < TileMap.WIDTH; i++ ){
+			for (var j:int = 0; j < TileMap.HEIGHT; j++ ){
+				tileMap.setTile([i][j],Tile.createTile(columns[i][j])); //If the TileMap is initialized
+			}
+		}
+		
+		//Ta-dah!
+		return tileMap; 
 	}
 	
 	/**Adds a generation layer to the level generation.  During each pass, generation layers
 	 * are applied in the same order that they are added to this generator.
 	 */
 	public function addGenerationLayer(layer:GenerationLayer):void{
-		//TODO
+		//Vectors in AS3 = stacks
+		this.layers.push(layer);
 	}
+	
+	
 }
 
 }
