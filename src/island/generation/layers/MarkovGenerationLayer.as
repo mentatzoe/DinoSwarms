@@ -9,7 +9,7 @@ public class MarkovGenerationLayer extends GenerationLayer
 		//TODO
 	}
 	
-	override public function apply(tilemap:Array.<Array.<int>>, resolution:int):Array.<Array.<int>>{
+	override public function apply(tilemap:Vector.<Vector.<int>>, resolution:int):Vector.<Vector.<int>>{
 		//TODO
 		return null;
 	}

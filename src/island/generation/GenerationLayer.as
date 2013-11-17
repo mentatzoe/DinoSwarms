@@ -8,7 +8,10 @@ public class GenerationLayer{
 		//TODO
 	}
 	
-	public function apply(tilemap:Array.<Array.<int>>, resolution:int):Array.<Array.<int>>{
+	/**
+	 * 
+	 */
+	public function apply(tilemap:Vector.<Vector.<int>>, resolution:int):Vector.<Vector.<int>>{
 		throw new IllegalOperationError();
 	}
 		
