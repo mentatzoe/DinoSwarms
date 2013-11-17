@@ -4,6 +4,8 @@ package
     import flash.events.Event;
     
     import island.TileMap;
+    import island.generation.LevelGeneration;
+    import island.generation.layers.RandomGenerationLayer;
     
     public class DinoSwarms extends Sprite
     {
@@ -11,7 +13,10 @@ package
         
         public function DinoSwarms()
         {
-            tileMap = new TileMap();
+			var generator:LevelGeneration = new LevelGeneration(0, 0);
+			generator.addGenerationLayer(new RandomGenerationLayer());
+			tileMap = generator.generate();
+			
             addEventListener(Event.ADDED_TO_STAGE, init);
             
         }
