@@ -1,14 +1,15 @@
 package island.generation
 {
 
-public class MarkovModel
-{
-	public function MarkovModel(width:int, height:int){
+public class MarkovModel{
+	
+	public function MarkovModel(... rows){
 		//TODO
 	}
 	
-	public function setRow(row:int, ... rest):void{
+	public function apply(input:Array.<Number>):Array.<Number>{
 		//TODO
+		return null;
 	}
 }
 

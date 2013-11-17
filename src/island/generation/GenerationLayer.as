@@ -1,15 +1,17 @@
 package island.generation
 {
-import island.TileMap;
 import flash.errors.IllegalOperationError;
 
-public class GenerationLayer
-{
+public class GenerationLayer{
+	
 	public function GenerationLayer(){
 		//TODO
 	}
-		
-	public function apply(tilemapIn:TileMap, resolution:int):TileMap{
+	
+	/**
+	 * 
+	 */
+	public function apply(tilemap:Vector.<Vector.<int>>, resolution:int):Vector.<Vector.<int>>{
 		throw new IllegalOperationError();
 	}
 		
@@ -19,6 +21,11 @@ public class GenerationLayer
 		
 	public function setMinMaxResolution(minResolution:int, maxResolution):void{
 		//TODO
+	}
+	
+	public function usesResolution(resolution:int):Boolean{
+		//TODO
+		return false;
 	}
 }
 
