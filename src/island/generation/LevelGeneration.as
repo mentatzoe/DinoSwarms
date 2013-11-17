@@ -10,10 +10,6 @@ public class LevelGeneration{
 	
 	private var layers:Vector.<GenerationLayer>;
 	
-	public function LevelGeneration(width:int, height:int){
-		//TODO
-	}
-	
 	/**Starting with a default map filled with water, with the starting resolution.
 	 * We step through each layer of the generator, if the layer can be applied at
 	 * the current resolution, it is applied, otherwise skipped for this resolution.
@@ -31,28 +27,28 @@ public class LevelGeneration{
 		
 		
 		//Generating 2D int vector (of tile types);
-		var columns : Vector( TileMap.WIDTH );		
-		for( var i:int = 0; i < TileMap.WIDTH; i++ ){
-			columns[i] = new Vector( TileMap.HEIGHT );
-			for (var j:int = 0; j < TileMap.HEIGHT; j++ ){
-				columns[i][j] = 0;
+		var tileTypes : Vector<Vector.<int>>(TileMap.WIDTH);		
+		for(var i:int = 0; i < TileMap.WIDTH; i++){
+			tileTypes[ i ] = new Vector.<int>(TileMap.HEIGHT);
+			for(var j:int = 0; j < TileMap.HEIGHT; j++){
+				tileTypes[i][j] = 0;
 			}
 		}
 		
 		//Applying layers to the int array of tile types on increasing resolution
 		while (currentRes >= ENDING_RESOLUTION){
-			for each (var layer in this.layers){
+			for each (var layer:GenerationLayer in this.layers){
 				if (layer.usesResolution()){
-					layer.apply(currentRes);
+					layer.apply(tileTypes, currentRes);
 				}			
 			}
 			currentRes /= step;
 		}
 		
 		//Convert int array into tileMap	
-		for( var i:int = 0; i < TileMap.WIDTH; i++ ){
-			for (var j:int = 0; j < TileMap.HEIGHT; j++ ){
-				tileMap.setTile([i][j],Tile.createTile(columns[i][j])); //If the TileMap is initialized
+		for(var i:int = 0; i < TileMap.WIDTH; i++){
+			for(var j:int = 0; j < TileMap.HEIGHT; j++){
+				tileMap.setTile([i][j],Tile.createTile(tileTypes[i][j])); //If the TileMap is initialized
 			}
 		}
 		
