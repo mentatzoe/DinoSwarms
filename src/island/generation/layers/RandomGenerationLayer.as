@@ -1,6 +1,5 @@
 package island.generation.layers
 {
-import island.TileMap;
 import island.generation.GenerationLayer;
 
 public class RandomGenerationLayer extends GenerationLayer
@@ -9,7 +8,7 @@ public class RandomGenerationLayer extends GenerationLayer
 		super();
 	}
 	
-	override public function apply(tilemap:TileMap, resolution:int):TileMap{
+	override public function apply(tilemap:Array.<Array.<int>>, resolution:int):Array.<Array.<int>>{
 		//TODO
 		return null;
 	}

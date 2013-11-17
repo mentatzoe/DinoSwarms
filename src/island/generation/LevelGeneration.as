@@ -1,9 +1,10 @@
 package island.generation
 {
+
 import island.TileMap;
 
-public class LevelGeneration
-{
+public class LevelGeneration{
+	
 	public function LevelGeneration(width:int, height:int){
 		//TODO
 	}

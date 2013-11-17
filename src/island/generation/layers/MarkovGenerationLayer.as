@@ -1,6 +1,5 @@
 package island.generation.layers
 {
-import island.TileMap;
 import island.generation.GenerationLayer;
 import island.generation.MarkovModel;
 
@@ -10,7 +9,7 @@ public class MarkovGenerationLayer extends GenerationLayer
 		//TODO
 	}
 	
-	override public function apply(tilemap:TileMap, resolution:int):TileMap{
+	override public function apply(tilemap:Array.<Array.<int>>, resolution:int):Array.<Array.<int>>{
 		//TODO
 		return null;
 	}
