@@ -32,7 +32,6 @@ public class TileMap extends Sprite
 			}
 			tileMap.push(column);
 		}
-		draw();
 		
 		addEventListener(Event.ADDED_TO_STAGE,init);
 	}
@@ -50,6 +49,7 @@ public class TileMap extends Sprite
 				tile.onUpdate();
 			}
 		}
+		draw();
 	}
 	
 	private function onTileEvent(e:TileEvent):void {
