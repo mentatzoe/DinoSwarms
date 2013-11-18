@@ -3,6 +3,8 @@ package
     import flash.display.Sprite;
     import flash.events.Event;
     
+    import dinosaurs.Gallimimus;
+    
     import island.TileMap;
     import island.generation.LevelGeneration;
     import island.generation.layers.RandomGenerationLayer;
@@ -33,6 +35,11 @@ package
 			if(generator.finished()){
 				removeEventListener(Event.ENTER_FRAME, stepGenerate);
 			}
+		}
+		
+		private function generationFinished():void{
+			var dino:Gallimimus = new Gallimimus();
+			addChild(dino);
 		}
     }
 }
