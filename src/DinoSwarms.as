@@ -11,10 +11,11 @@ package
     {
         private var tileMap:TileMap;
         
-        public function DinoSwarms()
-        {
-			var generator:LevelGeneration = new LevelGeneration(0, 0);
-			generator.addGenerationLayer(new RandomGenerationLayer());
+        public function DinoSwarms(){
+			var generator:LevelGeneration = new LevelGeneration();
+			var exampleLayer:RandomGenerationLayer = new RandomGenerationLayer();
+			exampleLayer.addResolution(1);
+			generator.addGenerationLayer(exampleLayer);
 			tileMap = generator.generate();
 			
             addEventListener(Event.ADDED_TO_STAGE, init);

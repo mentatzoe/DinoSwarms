@@ -20,7 +20,6 @@ public class Tile{
 	}
 	
 	public function onUpdate():void {
-		throw new IllegalOperationError();
 	}
 	
 	
