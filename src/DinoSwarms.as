@@ -17,7 +17,7 @@ package
         public function DinoSwarms(){
 			generator = new LevelGeneration();
 			var exampleLayer:RandomGenerationLayer = new RandomGenerationLayer();
-			exampleLayer.setMinMaxResolution(1, 256);
+			exampleLayer.addResolution(1);
 			generator.addGenerationLayer(exampleLayer);
 			
 			tileMap = new TileMap();
@@ -34,6 +34,7 @@ package
 			generator.stepGenerate(tileMap);
 			if(generator.finished()){
 				removeEventListener(Event.ENTER_FRAME, stepGenerate);
+				generationFinished();
 			}
 		}
 		

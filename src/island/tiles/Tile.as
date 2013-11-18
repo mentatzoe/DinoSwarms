@@ -43,7 +43,7 @@ public class Tile{
 			case Tile.WATER:
 				return new Water();
 			case Tile.DIRT:
-				return new Grass(0, 0.5);
+				return new Grass(0, 0);
 			case Tile.GRASS:
 				return new Grass(1, 0.1);
 			case Tile.SAND:

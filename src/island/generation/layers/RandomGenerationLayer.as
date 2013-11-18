@@ -12,7 +12,7 @@ public class RandomGenerationLayer extends GenerationLayer
 	override public function apply(tilemap:Vector.<Vector.<int>>):Vector.<Vector.<int>>{
 		for(var x:int = 0; x < tilemap.length; x++){
 			for(var y:int = 0; y < tilemap[x].length; y++){
-				tilemap[x][y] = (tilemap[x][y] + (int)(Math.random()*2)) % 5;
+				tilemap[x][y] = Math.random() * 5;
 			}
 		}
 		return tilemap;

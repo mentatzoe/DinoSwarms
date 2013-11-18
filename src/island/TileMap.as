@@ -15,8 +15,10 @@ public class TileMap extends Sprite
 {
 	public static const WIDTH:int = 256;
 	public static const HEIGHT:int  = 256;
+	public static const TILE_SIZE:int = 2;
 	
-	private static const TILE_SIZE:int = 2;
+	private static var instCount:int = 0;
+	private static var currentMap:TileMap;
 	
 	private var bitmap:BitmapData = new BitmapData(WIDTH*TILE_SIZE, HEIGHT*TILE_SIZE, false);
 	private var tileMap:Vector.<Vector.<Tile>> = new Vector.<Vector.<Tile>>(WIDTH);
@@ -27,6 +29,13 @@ public class TileMap extends Sprite
 	 */
 	public function TileMap(){
 		super();
+		
+		if(instCount == 0){
+			instCount++;
+			currentMap = this;
+		}else{
+			throw("OMFG");
+		}
 		
 		//i = row
 		//j = column
@@ -114,6 +123,10 @@ public class TileMap extends Sprite
 		graphics.beginBitmapFill(bitmap);
 		graphics.drawRect(0, 0, WIDTH*TILE_SIZE, HEIGHT*TILE_SIZE);
 		graphics.endFill();
+	}
+	
+	public static function get CurrentMap():TileMap {
+		return currentMap;
 	}
 	
 	/**Returns the 2D vector that hold all of the tiles
