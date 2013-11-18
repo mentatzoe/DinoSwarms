@@ -52,7 +52,7 @@ public class Grass extends Tile
 	
 	public override function onAddToTileMap():void{
 		if(_growthPercent < 1  &&  _growRate > 0){
-			tilemap.requestUpdate(this, (int)(Math.random()*60 + 1));
+			tilemap.requestUpdate(this, (int)(Math.random()*120 + 1));
 		}
 	}
 	

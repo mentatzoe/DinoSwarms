@@ -146,8 +146,8 @@ public class TileMap extends Sprite
 		if(tileMap[x][y]){
 			tileMap[x][y].onRemoveFromTilemap();
 			tileMap[x][y].tilemap = null;
-			tileMap[x][y] = null;
 			delete updateList[tileMap[x][y]];
+			tileMap[x][y] = null;
 		}
 		
 		tileMap[x][y] = tile;

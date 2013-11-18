@@ -10,20 +10,29 @@ package
     public class DinoSwarms extends Sprite
     {
         private var tileMap:TileMap;
+		private var generator:LevelGeneration;
         
         public function DinoSwarms(){
-			var generator:LevelGeneration = new LevelGeneration();
+			generator = new LevelGeneration();
 			var exampleLayer:RandomGenerationLayer = new RandomGenerationLayer();
-			exampleLayer.addResolution(1);
+			exampleLayer.setMinMaxResolution(1, 256);
 			generator.addGenerationLayer(exampleLayer);
-			tileMap = generator.generate();
+			
+			tileMap = new TileMap();
 			
             addEventListener(Event.ADDED_TO_STAGE, init);
-            
         }
         
         private function init(e:Event):void {
             addChild(tileMap);
+			addEventListener(Event.ENTER_FRAME, stepGenerate);
         }
+		
+		private function stepGenerate(e:Event):void{
+			generator.stepGenerate(tileMap);
+			if(generator.finished()){
+				removeEventListener(Event.ENTER_FRAME, stepGenerate);
+			}
+		}
     }
 }
