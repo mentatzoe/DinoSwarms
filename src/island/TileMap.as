@@ -1,9 +1,9 @@
 package island
 {
+import events.TileEvent;
+
 import flash.display.Sprite;
 import flash.events.Event;
-
-import events.TileEvent;
 
 import island.tiles.Sand;
 import island.tiles.Tile;
@@ -32,7 +32,6 @@ public class TileMap extends Sprite
 			}
 			tileMap.push(column);
 		}
-		draw();
 		
 		addEventListener(Event.ADDED_TO_STAGE,init);
 	}
@@ -50,6 +49,7 @@ public class TileMap extends Sprite
 				tile.onUpdate();
 			}
 		}
+		draw();
 	}
 	
 	private function onTileEvent(e:TileEvent):void {
@@ -77,6 +77,18 @@ public class TileMap extends Sprite
 	
 	public function getTile(x:int, y:int):Tile {
 		return tileMap[x][y];
+	}
+	
+	
+	/**
+	 * setTile
+	 * 
+	 * setter for each individual tile
+	 * 
+	 * @params: int x, int y, Tile t
+	 * */
+	public function setTile(x:int, y:int, t:Tile):void {
+		tileMap[x][y] = t;
 	}
 }
 }

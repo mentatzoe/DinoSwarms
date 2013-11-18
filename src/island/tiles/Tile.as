@@ -20,7 +20,31 @@ public class Tile{
 	}
 	
 	public function onUpdate():void {
-		throw new IllegalOperationError();
+	}
+	
+	
+	/**
+	 * Function createTile
+	 * This function returns a new tile according to the type of tile passed as parameter.
+	 * 
+	 * Params: int type
+	 * Returns: Tile (any of them) 
+	 */
+	public static function createTile(type:int):Tile{
+		switch (type){
+			case Tile.WATER:
+				return new Water();
+			case Tile.DIRT:
+				return new Grass(0, 0);
+			case Tile.GRASS:
+				return new Grass(1, 1);
+			case Tile.SAND:
+				return new Sand();
+			case Tile.TREE:
+				return new Tree();
+			default:
+				throw new IllegalOperationError();
+		}	
 	}
 }
 }

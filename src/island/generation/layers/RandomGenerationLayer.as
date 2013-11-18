@@ -9,8 +9,12 @@ public class RandomGenerationLayer extends GenerationLayer
 	}
 	
 	override public function apply(tilemap:Vector.<Vector.<int>>, resolution:int):Vector.<Vector.<int>>{
-		//TODO
-		return null;
+		for(var x:int = 0; x < tilemap.length; x += resolution){
+			for(var y:int = 0; y < tilemap[x].length; y += resolution){
+				tilemap[x][y] = (int)(Math.random() * 5);
+			}
+		}
+		return tilemap;
 	}
 }
 }

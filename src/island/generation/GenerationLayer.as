@@ -3,7 +3,7 @@ package island.generation
 import flash.errors.IllegalOperationError;
 
 public class GenerationLayer{
-	private var _resolutions:Vector.<int>;
+	private var _resolutions:Vector.<int> = new Vector.<int>();
 	
 	public function GenerationLayer(){
 	}
@@ -19,7 +19,7 @@ public class GenerationLayer{
 	 * Adds a resolution to the object's list
 	 */
 	public function addResolution(resolution:int):void{
-		_resolutions.concat(resolution);
+		_resolutions.push(resolution);
 	}
 	
 	/**
