@@ -1,6 +1,7 @@
 package island.tiles
 {
 import flash.errors.IllegalOperationError;
+import island.TileMap;
 
 public class Tile{
 	public static var WATER:int = 0;
@@ -10,6 +11,8 @@ public class Tile{
 	public static var TREE:int = 4;
 	
 	protected var _traversable:Boolean;
+	public var x:int, y:int;
+	public var tilemap:TileMap;
 	
 	public function Tile(){
 		super();
@@ -19,9 +22,14 @@ public class Tile{
 		throw new IllegalOperationError();
 	}
 	
-	public function onUpdate():void {
+	public function onRemoveFromTilemap():void{
 	}
 	
+	public function onAddToTileMap():void{
+	}
+	
+	public function onUpdate():void {
+	}
 	
 	/**
 	 * Function createTile
@@ -37,7 +45,7 @@ public class Tile{
 			case Tile.DIRT:
 				return new Grass(0, 0);
 			case Tile.GRASS:
-				return new Grass(1, 1);
+				return new Grass(1, 0.1);
 			case Tile.SAND:
 				return new Sand();
 			case Tile.TREE:
