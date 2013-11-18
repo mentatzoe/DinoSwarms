@@ -13,14 +13,24 @@ package island
     {
         public static const WIDTH:int = 256;
         public static const HEIGHT:int  = 256;
+        public static const TILE_SIZE:int = 2;
+        private static var currentMap:TileMap;
         
-        private static const TILE_SIZE:int = 5;
+        private static var instCount:int = 0;
+        
         
         private var tileMap:Array = [];
         
         public function TileMap()
         {
             super();
+            
+            if(instCount == 0){
+                instCount++;
+                currentMap = this;
+            }else{
+                throw("OMFG");
+            }
             
             //i = row
             //j = column
@@ -72,12 +82,19 @@ package island
             }
         }
         
+        public static function get CurrentMap():TileMap {
+            return currentMap;
+        }
+        
         public function get Map():Array {
             return tileMap;
         }
         
         public function getTile(x:int, y:int):Tile {
-            return tileMap[x][y];
-        }
+            var tileX:int = x/TILE_SIZE;
+            var tileY:int = y/TILE_SIZE;
+            trace(tileX + "," + tileY);
+            return tileMap[tileX][tileY];
+        }        
     }
 }
