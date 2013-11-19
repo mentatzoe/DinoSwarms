@@ -11,7 +11,7 @@ public class GenerationLayer{
 	/**
 	 * Applies a process to a 2D vector of ints at a specific resolution and returns a 2D vector of ints.
 	 */
-	public function apply(tilemap:Vector.<Vector.<int>>, resolution:int):Vector.<Vector.<int>>{
+	public function apply(tilemap:Vector.<Vector.<int>>):Vector.<Vector.<int>>{
 		throw new IllegalOperationError();
 	}
 	
