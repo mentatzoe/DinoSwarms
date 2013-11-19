@@ -54,6 +54,7 @@ package FiniteStateMachine
 		
 		public function isTriggered():Boolean
 		{
+			trace(_condition);
 			return _condition();
 		}
 	}

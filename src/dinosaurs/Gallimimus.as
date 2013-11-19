@@ -13,6 +13,7 @@ package dinosaurs
     import island.TileMap;
     import island.tiles.Grass;
     import island.tiles.Tile;
+    import FiniteStateMachine.ITransition;
 
     public class Gallimimus extends Dinosaur
     {        
@@ -32,15 +33,19 @@ package dinosaurs
             _stateMachine.currentState = search;
             var searchTransition:Transition = new Transition();
             searchTransition.condition = function():Boolean {
-                
-                var targetTile:Tile = TileMap.CurrentMap.getTile(targetPoint.x,targetPoint.y);
-                var currentTile:Tile = TileMap.CurrentMap.getTile(this.x,this.y);
+                var targetTile:Tile = TileMap.CurrentMap.getTileFromCoord(targetPoint.x,targetPoint.y);
+                var currentTile:Tile = TileMap.CurrentMap.getTileFromCoord(this.x,this.y);
+				trace(this.x+", "+targetPoint.x);
                 if(targetTile != currentTile) return false;
+				trace("EATING~!!!!~!");
                 if(currentTile is Grass){
                     return (currentTile as Grass).IsEdible;
                 }
                 return false;
             };
+			trace(searchTransition);
+			_stateMachine.transitions.push(new Transition());
+			trace(_stateMachine.transitions[0].isTriggered());
             
             //Eat
             var eat:State = new State();
