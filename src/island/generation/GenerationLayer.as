@@ -11,7 +11,7 @@ public class GenerationLayer{
 	/**
 	 * Applies a process to a 2D vector of ints at a specific resolution and returns a 2D vector of ints.
 	 */
-	public function apply(tilemap:Vector.<Vector.<int>>):Vector.<Vector.<int>>{
+	public function apply(tilemap:Vector.<Vector.<int>>, width:int, height:int):Vector.<Vector.<int>>{
 		throw new IllegalOperationError();
 	}
 	
@@ -27,11 +27,13 @@ public class GenerationLayer{
 	 * min resolution last.
 	 */
 	public function setMinMaxResolution(minResolution:int, maxResolution):void{
-		while(maxResolution != minResolution){
-			addResolution(maxResolution);
-			maxResolution = maxResolution/2;
+		if(minResolution < maxResolution){
+			throw ("Minimum resolution should be larger than maximum resolution");
 		}
-		addResolution(minResolution);
+		while(minResolution >= maxResolution){
+			addResolution(minResolution);
+			minResolution = minResolution/2;
+		}
 	}
 	
 	/**

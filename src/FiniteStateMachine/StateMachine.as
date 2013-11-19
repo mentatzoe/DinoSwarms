@@ -20,7 +20,7 @@ package FiniteStateMachine
 			var actions:Array = [];
 			var transitions:Array = [];
 			
-			for(var trans:ITransition in transitions){
+			for(var trans in transitions){
 				if(trans.isTriggered()){
 					if(_currentState.exitAction){
 						actions.push(_currentState.exitAction);
