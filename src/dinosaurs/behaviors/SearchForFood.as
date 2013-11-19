@@ -25,8 +25,8 @@ package dinosaurs.behaviors
 					_dinosaur.y = _dinosaur.targetPoint.y;
 				}
 				trace("target: ( "+_dinosaur.targetPoint.x+", "+_dinosaur.targetPoint.y+"), dino: ("+_dinosaur.x+", "+_dinosaur.y+")");
-                var targetTile:Tile = TileMap.CurrentMap.getTile(_dinosaur.targetPoint.x,_dinosaur.targetPoint.y);
-                var currentTile:Tile = TileMap.CurrentMap.getTile(Math.floor(_dinosaur.x),Math.floor(_dinosaur.y));
+                var targetTile:Tile = TileMap.CurrentMap.getTileFromCoord(_dinosaur.targetPoint.x,_dinosaur.targetPoint.y);
+                var currentTile:Tile = TileMap.CurrentMap.getTileFromCoord(Math.floor(_dinosaur.x),Math.floor(_dinosaur.y));
 				if(currentTile == targetTile) _dinosaur.targetPoint = null;
             }
             

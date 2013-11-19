@@ -145,6 +145,16 @@ public class TileMap extends Sprite
 		return tileMap[x][y];
 	}
 	
+	/**Returns the Tile located at a specific coordinate in the world
+	 * 
+	 * @return Tile the specified tile
+	 */
+	public function getTileFromCoord(x:Number, y:Number):Tile {
+		var tileX:int = x/TILE_SIZE;
+		var tileY:int = y/TILE_SIZE;
+		return tileMap[tileX][tileY];
+	}
+	
 	
 	/**Puts a Tile into the tilemap at a specified location.
 	 * The added tile has its onAddToTileMap method called
