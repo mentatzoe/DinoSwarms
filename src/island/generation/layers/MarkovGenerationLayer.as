@@ -1,13 +1,15 @@
 package island.generation.layers
 {
 import flash.utils.Dictionary;
+
 import island.generation.GenerationLayer;
 import island.generation.MarkovModel;
+import island.tiles.Tile;
 
 
 public class MarkovGenerationLayer extends GenerationLayer
 {
-	var MMArray:Dictionary = new Dictionary();
+	private var MMArray:Dictionary = new Dictionary();
 	
 	public function MarkovGenerationLayer() {
 	
@@ -15,10 +17,11 @@ public class MarkovGenerationLayer extends GenerationLayer
 	
 	override public function apply(tilemap:Vector.<Vector.<int>>):Vector.<Vector.<int>>{
 		//create copy of tilemap
+		var x:int, y:int;
 		var tilemapCopy:Vector.<Vector.<int>> = new Vector.<Vector.<int>>(tilemap.length);
-		for (var x:int = 0; x < tilemap.length; x++) {
+		for (x = 0; x < tilemap.length; x++) {
 			tilemapCopy[x] = new Vector.<int>(tilemap[x].length);
-			for (var y:int = 0; y < tilemap[x].length; y++) {
+			for (y = 0; y < tilemap[x].length; y++) {
 				tilemapCopy[x][y] = tilemap[x][y];
 			}
 		}
@@ -29,8 +32,8 @@ public class MarkovGenerationLayer extends GenerationLayer
 		////doMath()
 		////setTile()
 		
-		for(var x:int = 0; x < tilemap.length; x++){
-			for(var y:int = 0; y < tilemap[x].length; y++){
+		for(x = 0; x < tilemap.length; x++){
+			for(y = 0; y < tilemap[x].length; y++){
 				var probability:Vector.<Number> = MMArray[tilemapCopy[x][y]].apply(getNeighborArray(tilemapCopy, x, y));
 				tilemap[x][y] = chooseTile(probability);
 			}
@@ -43,7 +46,7 @@ public class MarkovGenerationLayer extends GenerationLayer
 		MMArray[tileType] = model;
 	}
 	
-	private function getNeighborArray(tilemapCopy, x, y) {
+	private function getNeighborArray(tilemapCopy, x, y):Vector.<Number>{
 		var count:Vector.<Number> = new Vector.<Number>(Tile.NUM_TILES);
 		for (var i:int = -1; i < 2; i++) {
 			for (var j:int = -1; j < 2; j++) {
@@ -57,7 +60,7 @@ public class MarkovGenerationLayer extends GenerationLayer
 		return count;
 	}
 	
-	private function chooseTile(probability) {
+	private function chooseTile(probability):int{
 		var tileType:int;
 		var rndNum:Number = Math.random();
 		var sum:Number;
@@ -73,7 +76,6 @@ public class MarkovGenerationLayer extends GenerationLayer
 		}
 		throw("got past rng tile choice.");
 	}
-	
 }
 
 }
