@@ -15,7 +15,7 @@ public class TileMap extends Sprite
 {
 	public static const WIDTH:int = 256;
 	public static const HEIGHT:int  = 256;
-	public static const TILE_SIZE:int = 2;
+	public static const TILE_SIZE:int = 1;
 	
 	private static var instCount:int = 0;
 	private static var currentMap:TileMap;
@@ -65,7 +65,7 @@ public class TileMap extends Sprite
 	 * @param e event
 	 */
 	private function onUpdate(e:Event):void {
-		for(var tile:Tile in updateList){
+		for(var tile in updateList){
 			updateList[tile]--;
 			if(updateList[tile] == 0){
 				delete updateList[tile];
@@ -155,6 +155,9 @@ public class TileMap extends Sprite
 		return tileMap[tileX][tileY];
 	}
 	
+	public function drawTile(x:int, y:int, color:uint):void{
+		bitmap.fillRect(new Rectangle(x*TILE_SIZE, y*TILE_SIZE, TILE_SIZE, TILE_SIZE), color);
+	}
 	
 	/**Puts a Tile into the tilemap at a specified location.
 	 * The added tile has its onAddToTileMap method called

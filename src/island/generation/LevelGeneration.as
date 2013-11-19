@@ -16,10 +16,10 @@ public class LevelGeneration{
 	private var tileTypes:Vector.<Vector.<int>>; 
 	
 	public function LevelGeneration(){
-		tileTypes = new Vector.<Vector.<int>>(TileMap.WIDTH / STARTING_RESOLUTION);
-		for(var i:int = 0; i < TileMap.WIDTH / STARTING_RESOLUTION; i++){
-			tileTypes[i] = new Vector.<int>(TileMap.HEIGHT / STARTING_RESOLUTION);
-			for(var j:int = 0; j < TileMap.HEIGHT / STARTING_RESOLUTION; j++){
+		tileTypes = new Vector.<Vector.<int>>(TileMap.WIDTH);
+		for(var i:int = 0; i < TileMap.WIDTH; i++){
+			tileTypes[i] = new Vector.<int>(TileMap.HEIGHT);
+			for(var j:int = 0; j < TileMap.HEIGHT; j++){
 				tileTypes[i][j] = Tile.WATER;
 			}
 		}
@@ -44,20 +44,37 @@ public class LevelGeneration{
 		
 		while(!layers[currentLayer].usesResolution(currentRes)){
 			nextLayer();
+			if(currentRes == 0){
+				return;
+			}
 		}
 		
-		tileTypes = layers[currentLayer].apply(tileTypes);	
+		tileTypes = layers[currentLayer].apply(tileTypes, TileMap.WIDTH / currentRes, TileMap.HEIGHT / currentRes);	
 		
 		//Convert int array into tileMap	
+		
 		for(i = 0; i < TileMap.WIDTH; i++){
 			for(j = 0; j < TileMap.HEIGHT; j++){
 				subI = i / currentRes;
 				subJ = j / currentRes;
-				tileMap.setTile(i, j, Tile.createTile(tileTypes[subI][subJ])); //If the TileMap is initialized
+				tileMap.drawTile(i, j, Tile.getSimpleTileColor(tileTypes[subI][subJ]));
 			}
 		}
 		
 		nextLayer();
+	}
+	
+	public function finalize(tileMap:TileMap):void{
+		var i:int, j:int;
+		var subI:int, subJ:int;
+		
+		for(i = 0; i < TileMap.WIDTH; i++){
+			for(j = 0; j < TileMap.HEIGHT; j++){
+				subI = i / currentRes;
+				subJ = j / currentRes;
+				tileMap.setTile(i, j, Tile.createTile(tileTypes[subI][subJ]));
+			}
+		}
 	}
 	
 	public function finished():Boolean{
@@ -75,17 +92,13 @@ public class LevelGeneration{
 				return;
 			}
 			
-			var newTileTypes : Vector.<Vector.<int>> = new Vector.<Vector.<int>>(TileMap.WIDTH / currentRes);
-			for(var i:int = 0; i < TileMap.WIDTH / currentRes; i++){
-				newTileTypes[i] = new Vector.<int>(TileMap.HEIGHT / currentRes);
-				for(var j:int = 0; j < TileMap.HEIGHT / currentRes; j++){
+			for(var i:int = TileMap.WIDTH / currentRes - 1; i >= 0; i--){
+				for(var j:int = TileMap.HEIGHT / currentRes; j >= 0; j--){
 					var subI:int = i/RESOLUTION_STEP;
 					var subJ:int = j/RESOLUTION_STEP;
-					newTileTypes[i][j] = tileTypes[subI][subJ];
+					tileTypes[i][j] = tileTypes[subI][subJ];
 				}
 			}
-			
-			tileTypes = newTileTypes;
 		}
 	}
 	
