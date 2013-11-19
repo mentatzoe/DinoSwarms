@@ -9,14 +9,19 @@ import island.tiles.Tile;
 
 public class MarkovGenerationLayer extends GenerationLayer
 {
-	private var MMArray:Dictionary = new Dictionary();
+	private var _MMArray:Dictionary = new Dictionary();
 	
 	public function MarkovGenerationLayer() {
 	
 	}
 	
+	/**For every tile in the scene, take the quantity of the tile types neiboring to that tile.  These
+	 * quantities are input into a markov model, and the resulting probability vector is used to 
+	 * determine the new tile type.  If a tile type has no model coupled with it, it remains the same
+	 */
 	override public function apply(tilemap:Vector.<Vector.<int>>, width:int, height:int):Vector.<Vector.<int>>{
 		//create copy of tilemap
+		
 		var x:int, y:int;
 		var tilemapCopy:Vector.<Vector.<int>> = new Vector.<Vector.<int>>(width);
 		for (x = 0; x < width; x++) {
@@ -34,7 +39,7 @@ public class MarkovGenerationLayer extends GenerationLayer
 		
 		for(x = 0; x < width; x++){
 			for(y = 0; y < height; y++){
-				var model:MarkovModel = MMArray[tilemapCopy[x][y]];
+				var model:MarkovModel = _MMArray[tilemapCopy[x][y]];
 				var neighborArray:Vector.<Number> = getNeighborArray(tilemapCopy, x, y, width, height);
 				if(model){
 					var probability:Vector.<Number> = model.apply(neighborArray);
@@ -42,21 +47,36 @@ public class MarkovGenerationLayer extends GenerationLayer
 				}
 			}
 		}	
+		
 		return tilemap;
 	}
 	
+	/**Sets the given markov model to be used for the given tile types
+	 * If no tile types are given, all tile types are assumed
+	 * 
+	 * @param model to couple with the tile types
+	 * @param tileTypes to couple with the model
+	 */
 	public function setModel(model:MarkovModel, ... tileTypes):void{
 		if(tileTypes.length != 0){
 			for each (var type:int in tileTypes){
-				MMArray[type] = model;
+				_MMArray[type] = model;
 			}
 		}else{
 			for(var i:int = 0; i<Tile.NUM_TILES; i++){
-				MMArray[i] = model;
+				_MMArray[i] = model;
 			}
 		}
 	}
 	
+	/**Finds the neighbor array for a given tile in a matrix
+	 * 
+	 * @param tilemapCopy used for the lookup
+	 * @param x coordinate of the tile
+	 * @param y coordinate of the tile
+	 * @param width of the tilemap
+	 * @param height of the tilemap
+	 */
 	private function getNeighborArray(tilemapCopy, x, y, width, height):Vector.<Number>{
 		var count:Vector.<Number> = new Vector.<Number>(Tile.NUM_TILES);
 		for (var i:int = -1; i < 2; i++) {
@@ -71,7 +91,12 @@ public class MarkovGenerationLayer extends GenerationLayer
 		return count;
 	}
 	
-	private function chooseTile(probability):int{
+	/**Given a probability vector, return a randomly selected tile type
+	 * weighted by the vector.
+	 * 
+	 * @param probability vector used to choose
+	 */
+	private function chooseTile(probability:Vector.<Number>):int{
 		var tileType:int;
 		var rndNum:Number = Math.random();
 		var sum:Number = 0;

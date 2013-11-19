@@ -27,11 +27,13 @@ public class GenerationLayer{
 	 * min resolution last.
 	 */
 	public function setMinMaxResolution(minResolution:int, maxResolution):void{
-		while(maxResolution != minResolution){
-			addResolution(maxResolution);
-			maxResolution = maxResolution/2;
+		if(minResolution < maxResolution){
+			throw ("Minimum resolution should be larger than maximum resolution");
 		}
-		addResolution(minResolution);
+		while(minResolution >= maxResolution){
+			addResolution(minResolution);
+			minResolution = minResolution/2;
+		}
 	}
 	
 	/**
