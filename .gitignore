@@ -2,3 +2,6 @@
 .actionScriptProperties
 bin-debug
 .settings
+*.as3proj
+bin
+obj
