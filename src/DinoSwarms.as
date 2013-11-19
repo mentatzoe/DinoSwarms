@@ -12,42 +12,45 @@ package
     import island.generation.layers.RandomGenerationLayer;
     import island.tiles.Tile;
     
-    public class DinoSwarms extends Sprite
-    {
-        private var tileMap:TileMap;
-		private var generator:LevelGeneration;
+    public class DinoSwarms extends Sprite{
+        private var _tileMap:TileMap;
+		private var _generator:LevelGeneration;
         
         public function DinoSwarms(){
-			generator = new LevelGeneration();
+			initGenerator();
+			
+			_tileMap = new TileMap();
+			
+            addEventListener(Event.ADDED_TO_STAGE, init);
+        }
+		
+		private function initGenerator():void{
+			_generator = new LevelGeneration();
 			
 			var exampleLayer:RandomGenerationLayer = new RandomGenerationLayer();
 			exampleLayer.addResolution(64);
-			generator.addGenerationLayer(exampleLayer);
+			_generator.addGenerationLayer(exampleLayer);
 			
 			var fractalLayer:MarkovGenerationLayer = new MarkovGenerationLayer();
-			fractalLayer.setMinMaxResolution(1, 32);
+			fractalLayer.setMinMaxResolution(32, 1);
 			var fractalModel:MarkovModel = new MarkovModel([[1, 0, 0, 0, 0],
 															[0, 1, 0, 0, 0],
 															[0, 0, 1, 0, 0],
 															[0, 0, 0, 1, 0],
 															[0, 0, 0, 0, 1]]);
 			fractalLayer.setModel(fractalModel, Tile.DIRT, Tile.GRASS, Tile.SAND, Tile.TREE);
-			generator.addGenerationLayer(fractalLayer);
-			
-			tileMap = new TileMap();
-			
-            addEventListener(Event.ADDED_TO_STAGE, init);
-        }
+			_generator.addGenerationLayer(fractalLayer);
+		}
         
         private function init(e:Event):void {
-            addChild(tileMap);
+            addChild(_tileMap);
 			addEventListener(Event.ENTER_FRAME, stepGenerate);
         }
 		
 		private function stepGenerate(e:Event):void{
-			generator.stepGenerate(tileMap);
-			if(generator.finished()){
-				generator.finalize(tileMap);
+			_generator.stepGenerate(_tileMap);
+			if(_generator.finished()){
+				_generator.finalize(_tileMap);
 				removeEventListener(Event.ENTER_FRAME, stepGenerate);
 				generationFinished();
 			}
