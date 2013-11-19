@@ -7,13 +7,20 @@ public class MarkovModel{
 	
 	/**MarkovModel
 	 * 
-	 * Initializes the class with a probability matrix.
+	 * Initializes the class with a probability matrix.  Input is a row-col array so that
+	 * MarkovMovel can be created like   new MarkovModel([[0, 0, 0], 
+	 *                                                    [0, 0, 0]);
 	 * 
-	 * @params: rows Vector.<Vector.<Number>>
+	 * @params: matrix Array
 	 * */
-	
-	public function MarkovModel(rows:Vector.<Vector.<Number>>){
-		_model = rows;
+	public function MarkovModel(matrix:Array){
+		_model = new Vector.<Vector.<Number>>(matrix[0].length);
+		for(var x:int = 0; x<_model.length; x++){
+			_model[x] = new Vector.<Number>(matrix.length);
+			for(var y:int = 0; y<_model[x].length; y++){
+				_model[x][y] = matrix[y][x];
+			}
+		}
 	}
 	
 	

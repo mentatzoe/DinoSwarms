@@ -1,6 +1,7 @@
 package island.tiles
 {
 import flash.errors.IllegalOperationError;
+
 import island.TileMap;
 
 public class Tile{
@@ -51,6 +52,23 @@ public class Tile{
 				return new Sand();
 			case Tile.TREE:
 				return new Tree();
+			default:
+				throw new IllegalOperationError();
+		}	
+	}
+	
+	public static function getSimpleTileColor(type:int):uint{
+		switch (type){
+			case Tile.WATER:
+				return Water.WATER_COLOR.color;
+			case Tile.DIRT:
+				return Grass.DIRT_COLOR.color;
+			case Tile.GRASS:
+				return Grass.GRASS_COLOR.color;
+			case Tile.SAND:
+				return Sand.SAND_COLOR.color;
+			case Tile.TREE:
+				return Tree.TREE_COLOR.color;
 			default:
 				throw new IllegalOperationError();
 		}	
