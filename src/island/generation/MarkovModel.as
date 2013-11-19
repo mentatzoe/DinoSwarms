@@ -3,7 +3,7 @@ package island.generation
 
 public class MarkovModel{
 	
-	private var _model:Vector.<Vector.<Number>> = new Vector.<Vector.<Number>>();
+	private var _model:Vector.<Vector.<Number>>;
 	
 	/**MarkovModel
 	 * 
