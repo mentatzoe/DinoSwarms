@@ -65,7 +65,7 @@ public class TileMap extends Sprite
 	 * @param e event
 	 */
 	private function onUpdate(e:Event):void {
-		for(var tile:Tile in updateList){
+		for(var tile in updateList){
 			updateList[tile]--;
 			if(updateList[tile] == 0){
 				delete updateList[tile];

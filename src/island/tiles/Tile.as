@@ -9,6 +9,7 @@ public class Tile{
 	public static var GRASS:int = 2;
 	public static var SAND:int = 3;
 	public static var TREE:int = 4;
+	public static var NUM_TILES:int = 5;
 	
 	protected var _traversable:Boolean;
 	public var x:int, y:int;
