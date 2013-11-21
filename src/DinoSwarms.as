@@ -57,8 +57,10 @@ package
 		}
 		
 		private function generationFinished():void{
-			var dino:Gallimimus = new Gallimimus();
-			addChild(dino);
+			for(var i:int = 0; i<70;i++){
+				var dino:Gallimimus = new Gallimimus();
+				addChild(dino);
+			}
 		}
     }
 }
