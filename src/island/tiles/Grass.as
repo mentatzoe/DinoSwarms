@@ -12,6 +12,7 @@ public class Grass extends Tile
 	
 	private static const BEGIN_DELAY:int = 120;
 	private static const UPDATE_PERIOD:int = 60;
+	private static const EAT_UPDATE_PERIOD = 5;
 	
 	private var _growthPercent:Number;
 	private var _isEdible:Boolean;
@@ -47,7 +48,7 @@ public class Grass extends Tile
 		
 		_beingEaten = true;
 		if(_plannedUpdates == 0){
-			requestUpdate(UPDATE_PERIOD);
+			requestUpdate(EAT_UPDATE_PERIOD);
 		}
 	}
 	
@@ -72,7 +73,7 @@ public class Grass extends Tile
 		
 		if(_beingEaten){
 			_beingEaten = false;
-			requestUpdate(UPDATE_PERIOD);
+			requestUpdate(EAT_UPDATE_PERIOD);
 		}else{
 			grow();
 		}
