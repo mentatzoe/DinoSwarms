@@ -1,6 +1,10 @@
 package island.tiles
 {
+import util.Color;
+
 public class Sand extends Tile{
+	public static const SAND_COLOR:Color = new Color(1, 0.9, 0.7);
+	
 	public function Sand()
 	{
 		super();
@@ -8,7 +12,7 @@ public class Sand extends Tile{
 	}
 	
 	public override function getColor():uint {
-		return 0xFFF5A2;
+		return SAND_COLOR.color;
 	}
 }
 }

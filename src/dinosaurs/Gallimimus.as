@@ -56,7 +56,7 @@ package dinosaurs
         
         protected override function onUpdate(e:Event):void{
             var actions:Array = _stateMachine.update();
-            for(var a:int in actions){
+            for(var a in actions){
                 actions[a]();
             }
         }

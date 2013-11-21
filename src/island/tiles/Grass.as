@@ -7,8 +7,8 @@ public class Grass extends Tile
 {
 	public static const EDIBLE_PERCENT:Number = .5;
 	private static const EAT_RATE:Number = 0.001;
-	private static const GRASS_COLOR:Color = new Color(0.2, 1, 0.2);
-	private static const DIRT_COLOR:Color = new Color(0.5, 0.3, 0);
+	public static const GRASS_COLOR:Color = new Color(0.2, 1, 0.2);
+	public static const DIRT_COLOR:Color = new Color(0.5, 0.3, 0);
 	
 	private var _growthPercent:Number;
 	private var _isEdible:Boolean;
