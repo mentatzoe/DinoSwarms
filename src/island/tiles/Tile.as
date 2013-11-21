@@ -50,6 +50,14 @@ public class Tile{
 	}
 	
 	/**
+	 * Needed accessor for Pathfinding. Love Kevin
+	 */
+	public function getTraversable():Boolean
+	{
+		return _traversable;
+	}
+	
+	/**
 	 * Function createTile
 	 * This function returns a new tile according to the type of tile passed as parameter.
 	 * 

@@ -20,7 +20,7 @@ package dinosaurs
         public function Gallimimus()
         {
             super();
-            _speed = 4;
+            _speed = 2;
             graphics.beginFill(0xFF00FF);
             graphics.drawRect(0,0,TileMap.TILE_SIZE*5,TileMap.TILE_SIZE*5);
             graphics.endFill();
