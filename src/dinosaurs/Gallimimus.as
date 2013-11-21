@@ -3,6 +3,7 @@ package dinosaurs
     import flash.events.Event;
     import flash.geom.Point;
     
+    import FiniteStateMachine.ITransition;
     import FiniteStateMachine.State;
     import FiniteStateMachine.StateMachine;
     import FiniteStateMachine.Transition;
@@ -13,14 +14,13 @@ package dinosaurs
     import island.TileMap;
     import island.tiles.Grass;
     import island.tiles.Tile;
-    import FiniteStateMachine.ITransition;
 
     public class Gallimimus extends Dinosaur
     {        
         public function Gallimimus()
         {
             super();
-            _speed = 2;
+            _speed = 6;
             graphics.beginFill(0xFF00FF);
             graphics.drawRect(0,0,TileMap.TILE_SIZE*5,TileMap.TILE_SIZE*5);
             graphics.endFill();
@@ -33,19 +33,31 @@ package dinosaurs
             _stateMachine.currentState = search;
             var searchTransition:Transition = new Transition();
             searchTransition.condition = function():Boolean {
-                var targetTile:Tile = TileMap.CurrentMap.getTileFromCoord(targetPoint.x,targetPoint.y);
-                var currentTile:Tile = TileMap.CurrentMap.getTileFromCoord(this.x,this.y);
-				trace(this.x+", "+targetPoint.x);
-                if(targetTile != currentTile) return false;
-				trace("EATING~!!!!~!");
-                if(currentTile is Grass){
-                    return (currentTile as Grass).IsEdible;
-                }
-                return false;
+				
+				if(targetPoint){
+					var dx:Number = Math.abs(targetPoint.x - x);
+					var dy:Number = Math.abs(targetPoint.y - y);
+					var distance:Number = Math.sqrt(Math.pow(dx,2) + Math.pow(dy,2));
+					if(distance <= Speed){
+						x = targetPoint.x;
+						y = targetPoint.y;
+					}
+					var targetTile:Tile = TileMap.CurrentMap.getTileFromCoord(targetPoint.x,targetPoint.y);
+					var currentTile:Tile = TileMap.CurrentMap.getTileFromCoord(x,y);
+					if(targetTile != currentTile) return false;
+					if(currentTile is Grass){
+						return (currentTile as Grass).IsEdible;
+					}else{
+						targetPoint = null;
+						return false;
+					}
+				}else{
+					return false;
+				}
             };
-			trace(searchTransition);
-			_stateMachine.transitions.push(new Transition());
-			trace(_stateMachine.transitions[0].isTriggered());
+			//trace(searchTransition);
+			_stateMachine.transitions.push(searchTransition);
+			//trace(_stateMachine.transitions[0].isTriggered());
             
             //Eat
             var eat:State = new State();

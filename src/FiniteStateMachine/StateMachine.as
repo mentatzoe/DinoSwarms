@@ -19,9 +19,10 @@ package FiniteStateMachine
 		public function update():Array
 		{
 			var actions:Array = [];
-			var transitions:Array = [];
+			//var transitions:Array = [];
 			
-			for(var trans in transitions){
+			for(var transIndex in transitions){
+				var trans:ITransition = transitions[transIndex];
 				if(trans.isTriggered()){
 					if(_currentState.exitAction){
 						actions.push(_currentState.exitAction);

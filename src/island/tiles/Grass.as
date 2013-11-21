@@ -21,6 +21,7 @@ public class Grass extends Tile
 		_growthPercent = ediblePercent;
 		_isEdible = (ediblePercent > EDIBLE_PERCENT);
 		_growRate = growRate;
+		trace("GAS WUYZ UYJS CREDITA!");
 	}
 	
 	public override function getColor():uint {

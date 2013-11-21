@@ -29,7 +29,7 @@ package dinosaurs.behaviors
 				}
                 var targetTile:Tile = TileMap.CurrentMap.getTileFromCoord(_dinosaur.targetPoint.x,_dinosaur.targetPoint.y);
                 var currentTile:Tile = TileMap.CurrentMap.getTileFromCoord(Math.floor(_dinosaur.x),Math.floor(_dinosaur.y));
-				//if(currentTile == targetTile) _dinosaur.targetPoint = null;
+				if(currentTile == targetTile) _dinosaur.targetPoint = null;
             }
             
             if(!_dinosaur.targetPoint){
@@ -38,6 +38,7 @@ package dinosaurs.behaviors
                 _dinosaur.targetPoint.x = (TileMap.WIDTH - 1)*Math.random()*TileMap.TILE_SIZE;
                 _dinosaur.targetPoint.y = (TileMap.HEIGHT - 1)*Math.random()*TileMap.TILE_SIZE;
             }else{
+				trace(_dinosaur.targetPoint);
                 dx = (_dinosaur.targetPoint.x - _dinosaur.x);
                 dy = (_dinosaur.targetPoint.y - _dinosaur.y);
                 distance = Math.sqrt(Math.pow(dx,2) + Math.pow(dy,2));
