@@ -33,16 +33,16 @@ package
 			exampleLayer.addResolution(16); 
 			_generator.addGenerationLayer(exampleLayer);
 			
-			//Grass Biome
-			var grassLayer:MarkovGenerationLayer = new MarkovGenerationLayer();
-			grassLayer.setMinMaxResolution(16, 4);
-			var grassModel:MarkovModel = new MarkovModel([[1, 0, 0, 0, 0],
-														  [0, 1, 0, 0, 0],
-														  [0, 0.2, 1, 0, 0],
-														  [0, 0, 0, 1, 0],
-														  [0, 0, 0, 0, 1]]);
-			grassLayer.setModel(grassModel, Tile.DIRT);
-			_generator.addGenerationLayer(grassLayer);
+			//Biome Generation
+			var biomeLayer:MarkovGenerationLayer = new MarkovGenerationLayer();
+			biomeLayer.setMinMaxResolution(16, 1);
+			var biomeModel:MarkovModel = new MarkovModel([[0, 0, 0, 0, 0],
+														  [0, 10, 0, 0, 0],
+														  [0, .1, 80, 0, 0],
+														  [0, 0, 0, 0, 0],
+														  [0, .1, 0, 0, 40]]);
+			biomeLayer.setModel(biomeModel, Tile.DIRT, Tile.GRASS, Tile.TREE);
+			_generator.addGenerationLayer(biomeLayer);
 			
 			//Fractal Layer
 			var fractalLayer:MarkovGenerationLayer = new MarkovGenerationLayer();
