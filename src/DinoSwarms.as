@@ -8,10 +8,10 @@ package
     import island.TileMap;
     import island.generation.LevelGeneration;
     import island.generation.MarkovModel;
+    import island.generation.layers.DirtBaseGenerationLayer;
     import island.generation.layers.MarkovGenerationLayer;
     import island.generation.layers.RandomGenerationLayer;
     import island.tiles.Tile;
-    import island.generation.layers.DirtBaseGenerationLayer;
     
     public class DinoSwarms extends Sprite{
         private var _tileMap:TileMap;
@@ -28,10 +28,23 @@ package
 		private function initGenerator():void{
 			_generator = new LevelGeneration();
 			
+			//Dirt layer
 			var exampleLayer:DirtBaseGenerationLayer = new DirtBaseGenerationLayer();
 			exampleLayer.addResolution(16); 
 			_generator.addGenerationLayer(exampleLayer);
 			
+			//Biome Generation
+			var biomeLayer:MarkovGenerationLayer = new MarkovGenerationLayer();
+			biomeLayer.setMinMaxResolution(16, 1);
+			var biomeModel:MarkovModel = new MarkovModel([[0, 0, 0, 0, 0],
+														  [0, 10, 0, 0, 0],
+														  [0, .1, 80, 0, 0],
+														  [0, 0, 0, 0, 0],
+														  [0, .1, 0, 0, 40]]);
+			biomeLayer.setModel(biomeModel, Tile.DIRT, Tile.GRASS, Tile.TREE);
+			_generator.addGenerationLayer(biomeLayer);
+			
+			//Fractal Layer
 			var fractalLayer:MarkovGenerationLayer = new MarkovGenerationLayer();
 			fractalLayer.setMinMaxResolution(16, 2);
 			var fractalModel:MarkovModel = new MarkovModel([[1, 0, 0, 0, 0],
@@ -42,6 +55,7 @@ package
 			fractalLayer.setModel(fractalModel, Tile.DIRT, Tile.GRASS, Tile.SAND, Tile.TREE);
 			_generator.addGenerationLayer(fractalLayer);
 			
+			//Beach Layer
 			var beachLayer:MarkovGenerationLayer = new MarkovGenerationLayer();
 			beachLayer.setMinMaxResolution(8, 1);
 			var beachModel:MarkovModel = new MarkovModel([[1, 0, 0, 0, 0],
@@ -49,7 +63,7 @@ package
 														  [0, 0, 1, 0, 0],
 														  [10, 0, 0, 0, 0],
 														  [0, 0, 0, 0, 1]]);
-			beachLayer.setModel(beachModel, Tile.DIRT);
+			beachLayer.setModel(beachModel, Tile.DIRT, Tile.GRASS);
 			_generator.addGenerationLayer(beachLayer);
 		}
         
