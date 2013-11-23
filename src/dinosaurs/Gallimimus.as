@@ -73,7 +73,7 @@ package dinosaurs
 						return !(currentTile as Grass).IsEdible;
 					}
 
-			};
+					return null;};
 			_stateMachine.transitions.push(eatTransition);
 
         }
