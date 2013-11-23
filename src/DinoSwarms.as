@@ -29,18 +29,28 @@ package
 			_generator = new LevelGeneration();
 			
 			var exampleLayer:DirtBaseGenerationLayer = new DirtBaseGenerationLayer();
-			exampleLayer.addResolution(4); 
+			exampleLayer.addResolution(1); 
 			_generator.addGenerationLayer(exampleLayer);
 			
 			var fractalLayer:MarkovGenerationLayer = new MarkovGenerationLayer();
-			fractalLayer.setMinMaxResolution(64, 1);
+			fractalLayer.setMinMaxResolution(4, 1);
 			var fractalModel:MarkovModel = new MarkovModel([[1, 0, 0, 0, 0],
 															[0, 1, 0, 0, 0],
-															[0, 0, 0, 0, 0],
-															[0, 0, 0, 0, 0],
-															[0, 0, 0, 0, 0]]);
+															[0, 0, 1, 0, 0],
+															[0, 0, 0, 1, 0],
+															[0, 0, 0, 0, 1]]);
 			fractalLayer.setModel(fractalModel, Tile.DIRT, Tile.GRASS, Tile.SAND, Tile.TREE);
 			_generator.addGenerationLayer(fractalLayer);
+			
+			var beachLayer:MarkovGenerationLayer = new MarkovGenerationLayer();
+			beachLayer.setMinMaxResolution(2, 2);
+			var beachModel:MarkovModel = new MarkovModel([[1, 0, 0, 0, 0],
+														  [0, 1, 0, 0, 0],
+														  [0, 0, 1, 0, 0],
+														  [0, 0.3, 0, 1, 0],
+														  [0, 0, 0, 0, 1]]);
+			beachLayer.setModel(beachModel);
+			_generator.addGenerationLayer(beachLayer);
 		}
         
         private function init(e:Event):void {
@@ -53,7 +63,7 @@ package
 			if(_generator.finished()){
 				_generator.finalize(_tileMap);
 				removeEventListener(Event.ENTER_FRAME, stepGenerate);
-				//generationFinished();
+				generationFinished();
 			}
 		}
 		
