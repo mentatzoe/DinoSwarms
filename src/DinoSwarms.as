@@ -29,11 +29,11 @@ package
 			_generator = new LevelGeneration();
 			
 			var exampleLayer:DirtBaseGenerationLayer = new DirtBaseGenerationLayer();
-			exampleLayer.addResolution(1); 
+			exampleLayer.addResolution(16); 
 			_generator.addGenerationLayer(exampleLayer);
 			
 			var fractalLayer:MarkovGenerationLayer = new MarkovGenerationLayer();
-			fractalLayer.setMinMaxResolution(4, 1);
+			fractalLayer.setMinMaxResolution(16, 2);
 			var fractalModel:MarkovModel = new MarkovModel([[1, 0, 0, 0, 0],
 															[0, 1, 0, 0, 0],
 															[0, 0, 1, 0, 0],
@@ -42,7 +42,8 @@ package
 			fractalLayer.setModel(fractalModel, Tile.DIRT, Tile.GRASS, Tile.SAND, Tile.TREE);
 			_generator.addGenerationLayer(fractalLayer);
 			
-			var beachLayer:MarkovGenerationLayer = new MarkovGenerationLayer();
+			//Commenting this out because right now it's NOT a beach layer, just a randomly sand spawning layer
+			/*var beachLayer:MarkovGenerationLayer = new MarkovGenerationLayer();
 			beachLayer.setMinMaxResolution(2, 2);
 			var beachModel:MarkovModel = new MarkovModel([[1, 0, 0, 0, 0],
 														  [0, 1, 0, 0, 0],
@@ -50,7 +51,7 @@ package
 														  [0, 0.3, 0, 1, 0],
 														  [0, 0, 0, 0, 1]]);
 			beachLayer.setModel(beachModel);
-			_generator.addGenerationLayer(beachLayer);
+			_generator.addGenerationLayer(beachLayer);*/
 		}
         
         private function init(e:Event):void {
