@@ -10,9 +10,10 @@ import island.tiles.Tile;
 public class MarkovGenerationLayer extends GenerationLayer
 {
 	private var _MMArray:Dictionary = new Dictionary();
+	private var _inPlace:Boolean = false;
 	
-	public function MarkovGenerationLayer() {
-	
+	public function MarkovGenerationLayer(inPlace:Boolean = false) {
+		_inPlace = inPlace;
 	}
 	
 	/**For every tile in the scene, take the quantity of the tile types neiboring to that tile.  These
@@ -22,12 +23,17 @@ public class MarkovGenerationLayer extends GenerationLayer
 	override public function apply(tilemap:Vector.<Vector.<int>>, width:int, height:int):Vector.<Vector.<int>>{
 		//create copy of tilemap
 		
-		var x:int, y:int;
-		var tilemapCopy:Vector.<Vector.<int>> = new Vector.<Vector.<int>>(width);
-		for (x = 0; x < width; x++) {
-			tilemapCopy[x] = new Vector.<int>(height);
-			for (y = 0; y < height; y++) {
-				tilemapCopy[x][y] = tilemap[x][y];
+		var tilemapSource:Vector.<Vector.<int>>;
+		if(_inPlace){
+			tilemapSource = tilemap;
+		}else{
+			var x:int, y:int;
+			tilemapSource = new Vector.<Vector.<int>>(width);
+			for (x = 0; x < width; x++) {
+				tilemapSource[x] = new Vector.<int>(height);
+				for (y = 0; y < height; y++) {
+					tilemapSource[x][y] = tilemap[x][y];
+				}
 			}
 		}
 		
@@ -39,8 +45,8 @@ public class MarkovGenerationLayer extends GenerationLayer
 		
 		for(x = 0; x < width; x++){
 			for(y = 0; y < height; y++){
-				var model:MarkovModel = _MMArray[tilemapCopy[x][y]];
-				var neighborArray:Vector.<Number> = getNeighborArray(tilemapCopy, x, y, width, height);
+				var model:MarkovModel = _MMArray[tilemapSource[x][y]];
+				var neighborArray:Vector.<Number> = getNeighborArray(tilemapSource, x, y, width, height);
 				if(model){
 					var probability:Vector.<Number> = model.apply(neighborArray);
 					tilemap[x][y] = chooseTile(probability);
