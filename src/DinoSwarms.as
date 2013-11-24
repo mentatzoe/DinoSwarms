@@ -10,7 +10,7 @@ package
     import island.generation.MarkovModel;
     import island.generation.layers.DirtBaseGenerationLayer;
     import island.generation.layers.MarkovGenerationLayer;
-    import island.generation.layers.RandomGenerationLayer;
+    import island.generation.layers.SmoothingLayer;
     import island.tiles.Tile;
     
     public class DinoSwarms extends Sprite{
@@ -30,7 +30,7 @@ package
 			
 			//Dirt layer
 			var exampleLayer:DirtBaseGenerationLayer = new DirtBaseGenerationLayer();
-			exampleLayer.addResolution(16); 
+			exampleLayer.addResolution(32); 
 			_generator.addGenerationLayer(exampleLayer);
 			
 			//Biome Generation
@@ -38,7 +38,7 @@ package
 			biomeLayer.setMinMaxResolution(16, 1);
 			var biomeModel:MarkovModel = new MarkovModel([[0, 0, 0, 0, 0],
 														  [0, 10, 0, 0, 0],
-														  [0, .1, 80, 0, 0],
+														  [0, .2, 80, 0, 0],
 														  [0, 0, 0, 0, 0],
 														  [0, .1, 0, 0, 40]]);
 			biomeLayer.setModel(biomeModel, Tile.DIRT, Tile.GRASS, Tile.TREE);
@@ -46,25 +46,33 @@ package
 			
 			//Fractal Layer
 			var fractalLayer:MarkovGenerationLayer = new MarkovGenerationLayer();
-			fractalLayer.setMinMaxResolution(16, 2);
+			fractalLayer.setMinMaxResolution(32, 1);
 			var fractalModel:MarkovModel = new MarkovModel([[1, 0, 0, 0, 0],
 															[0, 1, 0, 0, 0],
 															[0, 0, 1, 0, 0],
-															[0, 0, 0, 1, 0],
+															[0, 0, 0, 0.8, 0],
 															[0, 0, 0, 0, 1]]);
 			fractalLayer.setModel(fractalModel, Tile.DIRT, Tile.GRASS, Tile.SAND, Tile.TREE);
 			_generator.addGenerationLayer(fractalLayer);
 			
 			//Beach Layer
 			var beachLayer:MarkovGenerationLayer = new MarkovGenerationLayer();
-			beachLayer.setMinMaxResolution(8, 1);
+			beachLayer.setMinMaxResolution(16, 1);
 			var beachModel:MarkovModel = new MarkovModel([[1, 0, 0, 0, 0],
-														  [0, 1, 0, 0, 0],
-														  [0, 0, 1, 0, 0],
-														  [10, 0, 0, 0, 0],
-														  [0, 0, 0, 0, 1]]);
-			beachLayer.setModel(beachModel, Tile.DIRT, Tile.GRASS);
+														  [0, 0, 0, 0, 0],
+														  [0, 0, 0, 0, 0],
+														  [0, 3, .2, 0, .2],
+														  [0, 0, 0, 0, 0]]);
+			beachLayer.setModel(beachModel, Tile.WATER);
 			_generator.addGenerationLayer(beachLayer);
+			
+			//Smoothing Layer
+			
+			var smoothingLayer:SmoothingLayer = new SmoothingLayer(6);
+			smoothingLayer.addResolution(1);
+			_generator.addGenerationLayer(smoothingLayer);
+			
+			
 		}
         
         private function init(e:Event):void {
