@@ -41,7 +41,7 @@ package
 														  [0, .2, 80, 0, 0, 0, 0, 0],
 														  [0, 0, 0, 0, 0, 0, 0, 0],
 														  [0, 0, 0, 0, 0, 0, 0, 0],
-														  [0, .08, .05, 0, 0, 40],
+														  [0, .08, .05, 0, 0, 40, 0, 0],
 														  [0, 0, 0, 0, 0, 0, 0, 0],
 														  [0, 0, 0, 0, 0, 0, 0, 0]]);
 			biomeLayer.setModel(biomeModel, Tile.DIRT, Tile.GRASS);
@@ -82,13 +82,13 @@ package
 			_generator.addGenerationLayer(smoothingLayer);
 			
 			//Trees UNDER CONSTRUCTION
-			var treeLayer:MarkovGenerationLayer = new MarkovGenerationLayer();
+			var treeLayer:MarkovGenerationLayer = new MarkovGenerationLayer(true);
 			treeLayer.setMinMaxResolution(1, 1);
 			var treeModel:MarkovModel = new MarkovModel([[0, 0, 0, 0, 0, 0, 0, 0],
 														  [0, 0, 0, 0, 0, 0, 0, 0],
 														  [0, 0, 0, 0, 0, 0, 0, 0],
 														  [0, 0, 0, 0, 0, 0, 0, 0],
-														  [0, 0, 0, 0, 0, .1, 0, 0],
+														  [0, 0, 0, 0, -5, .1, 0, 0],
 														  [0, 0, 0, 0, 0, 0, 0, 0],
 														  [0, 0, 0, 0, 0, 0, 0, 0],
 														  [0, 0, 0, 0, 0, 0, 0, 0]]);
