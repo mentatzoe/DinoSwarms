@@ -36,36 +36,42 @@ package
 			//Biome Generation
 			var biomeLayer:MarkovGenerationLayer = new MarkovGenerationLayer();
 			biomeLayer.setMinMaxResolution(16, 1);
-			var biomeModel:MarkovModel = new MarkovModel([[0, 0, 0, 0, 0, 0],
-														  [0, 10, 0, 0, 0, 0],
-														  [0, .2, 80, 0, 0, 0],
-														  [0, 0, 0, 0, 0, 0],
-														  [0, 0, 0, 0, 0, 0],
-														  [0, .1, 0, 0, 0, 40]]);
+			var biomeModel:MarkovModel = new MarkovModel([[0, 0, 0, 0, 0, 0, 0, 0],
+														  [0, 10, 0, 0, 0, 0, 0, 0],
+														  [0, .2, 80, 0, 0, 0, 0, 0],
+														  [0, 0, 0, 0, 0, 0, 0, 0],
+														  [0, 0, 0, 0, 0, 0, 0, 0],
+														  [0, .08, .05, 0, 0, 40],
+														  [0, 0, 0, 0, 0, 0, 0, 0],
+														  [0, 0, 0, 0, 0, 0, 0, 0]]);
 			biomeLayer.setModel(biomeModel, Tile.DIRT, Tile.GRASS);
 			_generator.addGenerationLayer(biomeLayer);
 			
 			//Fractal Layer
 			var fractalLayer:MarkovGenerationLayer = new MarkovGenerationLayer();
 			fractalLayer.setMinMaxResolution(32, 1);
-			var fractalModel:MarkovModel = new MarkovModel([[1, 0, 0, 0, 0, 0],
-															[0, 1, 0, 0, 0, 0],
-															[0, 0, 1, 0, 0, 0],
-															[0, 0, 0, 0.8, 0, 0],
-															[0, 0, 0, 0, 1, 0],
-															[0, 0, 0, 0, 0, 1]]);
+			var fractalModel:MarkovModel = new MarkovModel([[1, 0, 0, 0, 0, 0, 0, 0],
+															[0, 1, 0, 0, 0, 0, 0, 0],
+															[0, 0, 1, 0, 0, 0, 0, 0],
+															[0, 0, 0, 0.8, 0, 0, 0, 0],
+															[0, 0, 0, 0, 1, 0, 0, 0],
+															[0, 0, 0, 0, 0, 1, 0, 0],
+															[0, 0, 0, 0, 0, 0, 0, 0],
+															[0, 0, 0, 0, 0, 0, 0, 0]]);
 			fractalLayer.setModel(fractalModel, Tile.DIRT, Tile.GRASS, Tile.SAND, Tile.TREE, Tile.FOREST);
 			_generator.addGenerationLayer(fractalLayer);
 			
 			//Beach Layer
 			var beachLayer:MarkovGenerationLayer = new MarkovGenerationLayer();
 			beachLayer.setMinMaxResolution(16, 1);
-			var beachModel:MarkovModel = new MarkovModel([[1, 0, 0, 0, 0, 0],
-														  [0, 0, 0, 0, 0, 0],
-														  [0, 0, 0, 0, 0, 0],
-														  [0, 3, .2, 0, .2, 0],
-														  [0, 0, 0, 0, 0, 0],
-														  [0, 0, 0, 0, 0, 0]]);
+			var beachModel:MarkovModel = new MarkovModel([[1, 0, 0, 0, 0, 0, 0, 0],
+														  [0, 0, 0, 0, 0, 0, 0, 0],
+														  [0, 0, 0, 0, 0, 0, 0, 0],
+														  [0, 3, .2, 0, .2, 0, 0, 0],
+														  [0, 0, 0, 0, 0, 0, 0, 0],
+														  [0, 0, 0, 0, 0, 0, 0, 0],
+														  [0, 0, 0, 0, 0, 0, 0, 0],
+														  [0, 0, 0, 0, 0, 0, 0, 0]]);
 			beachLayer.setModel(beachModel, Tile.WATER);
 			_generator.addGenerationLayer(beachLayer);
 			
@@ -76,16 +82,18 @@ package
 			_generator.addGenerationLayer(smoothingLayer);
 			
 			//Trees UNDER CONSTRUCTION
-			/*var beachLayer:MarkovGenerationLayer = new MarkovGenerationLayer();
-			beachLayer.setMinMaxResolution(16, 1);
-			var beachModel:MarkovModel = new MarkovModel([[1, 0, 0, 0, 0, 0],
-														  [0, 0, 0, 0, 0, 0],
-														  [0, 0, 0, 0, 0, 0],
-														  [0, 3, .2, 0, .2, 0],
-														  [0, 0, 0, 0, 0, 0],
-														  [0, 0, 0, 0, 0, 0]]);
-			beachLayer.setModel(beachModel, Tile.WATER);
-			_generator.addGenerationLayer(beachLayer);*/			
+			var treeLayer:MarkovGenerationLayer = new MarkovGenerationLayer();
+			treeLayer.setMinMaxResolution(1, 1);
+			var treeModel:MarkovModel = new MarkovModel([[0, 0, 0, 0, 0, 0, 0, 0],
+														  [0, 0, 0, 0, 0, 0, 0, 0],
+														  [0, 0, 0, 0, 0, 0, 0, 0],
+														  [0, 0, 0, 0, 0, 0, 0, 0],
+														  [0, 0, 0, 0, 0, .1, 0, 0],
+														  [0, 0, 0, 0, 0, 0, 0, 0],
+														  [0, 0, 0, 0, 0, 0, 0, 0],
+														  [0, 0, 0, 0, 0, 0, 0, 0]]);
+			treeLayer.setModel(treeModel, Tile.FOREST);
+			_generator.addGenerationLayer(treeLayer);			
 			
 		}
         

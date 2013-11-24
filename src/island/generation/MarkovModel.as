@@ -12,13 +12,16 @@ public class MarkovModel{
 	 *                                                    [0, 0, 0]);
 	 * 
 	 * Usage:
-	 *   w d g s t f
+	 *   w d g s t f l b
 	 * w
 	 * d
 	 * g
 	 * s
 	 * t
 	 * f
+	 * l
+	 * b
+	 * 
 	 * Column neighbour affects chance of becoming row type.
 	 * 
 	 * @params: matrix Array
