@@ -11,6 +11,16 @@ public class MarkovModel{
 	 * MarkovMovel can be created like   new MarkovModel([[0, 0, 0], 
 	 *                                                    [0, 0, 0]);
 	 * 
+	 * Usage:
+	 *   w d g s t f
+	 * w
+	 * d
+	 * g
+	 * s
+	 * t
+	 * f
+	 * Column neighbour affects chance of becoming row type.
+	 * 
 	 * @params: matrix Array
 	 * */
 	public function MarkovModel(matrix:Array){
