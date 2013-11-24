@@ -49,7 +49,10 @@ public class MarkovGenerationLayer extends GenerationLayer
 				var neighborArray:Vector.<Number> = getNeighborArray(tilemapSource, x, y, width, height);
 				if(model){
 					var probability:Vector.<Number> = model.apply(neighborArray);
-					tilemap[x][y] = chooseTile(probability);
+					var newTile:int = chooseTile(probability);
+					if(newTile != -1){
+						tilemap[x][y] = newTile;
+					}
 				}
 			}
 		}	
@@ -106,13 +109,20 @@ public class MarkovGenerationLayer extends GenerationLayer
 		var tileType:int;
 		var rndNum:Number = Math.random();
 		var sum:Number = 0;
+		var i:int;
 		
-		for each(var value:Number in probability) {
-			sum += value;
+		for(i = 0; i<probability.length; i++){
+			probability[i] = Math.max(probability[i], 0);
+			sum += probability[i];
 		}
+		
+		if(sum == 0){
+			return -1;
+		}
+		
 		rndNum *= sum;
 		
-		for (var i:int = 0; i < probability.length; i++) {
+		for (i = 0; i < probability.length; i++) {
 			rndNum -= probability[i];
 			if (rndNum <= 0)
 				return i;
