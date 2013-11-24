@@ -109,6 +109,8 @@ public class Tile{
 				return Sand.SAND_COLOR.color;
 			case Tile.TREE:
 				return Tree.TREE_COLOR.color;
+			case Tile.FOREST:
+				return 0xff0000;
 			default:
 				throw new IllegalOperationError();
 		}	
