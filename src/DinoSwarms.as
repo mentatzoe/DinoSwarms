@@ -10,7 +10,7 @@ package
     import island.generation.MarkovModel;
     import island.generation.layers.DirtBaseGenerationLayer;
     import island.generation.layers.MarkovGenerationLayer;
-    import island.generation.layers.RandomGenerationLayer;
+    import island.tiles.Grass;
     import island.tiles.Tile;
     
     public class DinoSwarms extends Sprite{
@@ -82,6 +82,29 @@ package
 		}
 		
 		private function generationFinished():void{
+			for(var i:int = 0; i<TileMap.WIDTH / Grass.GROWTH_RES; i++){
+				for(var j:int = 0; j<TileMap.HEIGHT / Grass.GROWTH_RES; j++){
+					var growthPercent:Number = Grass.getGrowthPercent(i, j);
+					
+					var sumPercent:Number = 0;
+					for(var x:int = i; x < i + Grass.GROWTH_RES; x++){
+						for(var y:int = j; y < j + Grass.GROWTH_RES; y++){
+							var tile:Tile = _tileMap.getTile(x, y);
+							if(tile is Grass){
+								var grass:Grass = tile as Grass;
+								sumPercent += grass.EdiblePercent() / (Grass.GROWTH_RES * Grass.GROWTH_RES);
+							}
+						}
+					}
+					
+					trace(growthPercent + " : " + sumPercent);
+					
+				}
+			}
+			
+			
+			
+			
 			for(var i:int = 0; i<70;i++){
 				var dino:Gallimimus = new Gallimimus();
 				addChild(dino);
